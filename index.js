@@ -1,9 +1,21 @@
-import gulp from 'gulp';
-import files from './tasks/files';
+const gulp = require('gulp');
+const files = require('./tasks/files');
 
-gulp.task('files', files);
+const global = {};
 
-const build = gulp.series(files('./test/src', './test/dist'));
-gulp.task('build', build);
+const config = options => () => {
+    global.src = options.src;
+    global.out = options.out;
+};
 
-module.exports = gulp;
+const configTest = () => console.log(global.src.file);
+
+const fileTask = files({
+    input: global.src.file,
+    output: global.out.file,
+});
+
+const build = gulp.series(fileTask);
+
+module.exports = { build, configTest };
+module.exports.config = config;

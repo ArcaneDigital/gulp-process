@@ -22,9 +22,6 @@
   },
   "homepage": "https://github.com//ArcaneDigital/arcane-gulp#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.5",
-    "@babel/preset-env": "^7.1.5",
-    "@babel/register": "^7.0.0",
     "eslint": "^5.8.0",
     "eslint-config-arcane": "^1.0.0-alpha.8",
     "eslint-plugin-import": "^2.14.0",
@@ -34,6 +31,9 @@
     "prettier": "^1.15.1"
   },
   "dependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/register": "^7.0.0",
     "gulp": "^4.0.0"
   }
 }

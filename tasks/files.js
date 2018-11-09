@@ -1,5 +1,3 @@
-import gulp from 'gulp';
+const { src, dest } = require('gulp');
 
-const files = (input, output) => gulp.src(input).pipe(gulp.dest(output));
-
-export default files;
+module.exports = ({ input, output }) => () => src(input).pipe(dest(output));
