@@ -1,5 +1,6 @@
-import { src, dest } from 'gulp';
+import gulp from 'gulp';
 
-export default (input, output) => {
-    return src(input).pipe(dest(output));
-};
+const files = (input, output) => gulp.src(input).pipe(gulp.dest(output));
+gulp.task('files', files);
+
+export default files;

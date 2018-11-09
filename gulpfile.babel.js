@@ -1,5 +1,3 @@
-import files from './tasks/files';
+import gulp from './index';
 
-const test = files('./test/src', './test/dist');
-
-exports.test = test;
+module.exports = gulp;
