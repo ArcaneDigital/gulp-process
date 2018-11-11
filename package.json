@@ -3,9 +3,6 @@
   "version": "1.0.0-alpha.1",
   "description": "A codified version of our gulp process",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com//ArcaneDigital/arcane-gulp.git"
@@ -21,19 +18,25 @@
     "url": "https://github.com//ArcaneDigital/arcane-gulp/issues"
   },
   "homepage": "https://github.com//ArcaneDigital/arcane-gulp#readme",
+  "files": [
+    "index.js"
+  ],
   "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-arcane": "^1.0.0-alpha.8",
+    "cross-env": "^5.2.0",
+    "gulp": "^4.0.0",
+    "eslint": "^5.9.0",
+    "eslint-config-arcane": "^1.0.0-alpha.10",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
-    "prettier": "^1.15.1"
+    "prettier": "^1.15.2"
+  },
+  "peerDependencies": {
+    "cross-env": "^5.2.0",
+    "gulp": "^4.0.0"
   },
   "dependencies": {
-    "@babel/core": "^7.1.5",
-    "@babel/preset-env": "^7.1.5",
-    "@babel/register": "^7.0.0",
-    "gulp": "^4.0.0"
+    "node-notifier": "^5.3.0"
   }
 }

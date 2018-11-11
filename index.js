@@ -1,21 +1,21 @@
-const gulp = require('gulp');
-const files = require('./tasks/files');
+const { src, dest, series, parallel } = require('gulp');
 
 const global = {};
 
-const config = options => () => {
+const env = process.env.NODE_ENV || 'production';
+
+const config = options => {
     global.src = options.src;
     global.out = options.out;
 };
 
-const configTest = () => console.log(global.src.file);
+const fileTask = () => src(global.src.file).pipe(dest(global.out.file));
 
-const fileTask = files({
-    input: global.src.file,
-    output: global.out.file,
-});
+const serialBuild = series(fileTask);
+const build = parallel(fileTask);
 
-const build = gulp.series(fileTask);
-
-module.exports = { build, configTest };
-module.exports.config = config;
+module.exports = {
+    default: build,
+    serialBuild,
+    config,
+};
