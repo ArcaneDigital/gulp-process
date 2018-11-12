@@ -1,6 +1,7 @@
 // Global dependencies
 const { src, dest, series, parallel, lastRun, task, watch } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
+const path = require('path');
 
 // Style dependencies
 const sass = require('gulp-sass');
@@ -29,7 +30,7 @@ const config = options => {
 /*
  * Error Notification
  */
-const notification = err => {
+const notification = (stage, err) => {
     if (err) {
         notifier.notify({
             title: `ERROR: ${stage}`,
@@ -42,7 +43,7 @@ const notification = err => {
 /*
  * Style Processing
  */
-const style = () => {
+const styles = () => {
     const start = Date.now();
     const processors = [autoPrefixer];
 
@@ -50,11 +51,14 @@ const style = () => {
         processors.push(cssNano({ discardUnused: { fontFace: false } }));
     }
 
-    if (!lastRun('style')) {
+    if (!lastRun('styles')) {
         console.log('Starting styles ...');
     }
 
-    let stream = src(global.src.style, { since: lastRun('style') });
+    let stream = src(global.src.style, {
+        since: lastRun('styles'),
+        allowEmpty: true,
+    });
 
     if (env !== 'production') {
         stream = stream.pipe(sourcemaps.init());
@@ -65,7 +69,6 @@ const style = () => {
         .pipe(sass({ includePaths: ['./node_modules/**/'] }))
         .on('error', err => {
             notification('styles', err);
-            stream.emit('end');
         })
         .pipe(postcss(processors));
 
@@ -76,18 +79,58 @@ const style = () => {
     console.log(`Finished style in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.style));
 };
-task('style', style);
+task('styles', styles);
 
 /*
  * Javascript Processing
  */
-// const scripts = () => {
-//     const start = Date.now();
-//
-//     console.log(`Finished style in ${(Date.now() - start) / 1000} seconds`);
-//     return stream.pipe()
-// }
-// task('scripts', scripts);
+const outputName = string => {
+    const removed = path.parse(string);
+    return path.parse(removed.name);
+};
+const scripts = () => {
+    const start = Date.now();
+
+    if (!lastRun('scripts')) {
+        console.log('Starting scripts ...');
+    }
+
+    let stream = src(global.src.script, {
+        since: lastRun('scripts'),
+        allowEmpty: true,
+    });
+
+    stream = stream.pipe(files => {
+        const tasks = files.map(entry => {
+            const output = outputName(entry);
+            console.log(output);
+            // return rollup({
+            //     input: entry,
+            //     plugins: [
+            //         builtIns(),
+            //         resolve(),
+            //         commonjs(),
+            //         babel({
+            //             presets: ['@babel/preset-env'],
+            //             babelrc: false,
+            //         }),
+            //         uglify({
+            //             compress:
+            //                 env === 'production'
+            //                     ? { drop_console: true }
+            //                     : false,
+            //             sourceMap: env !== 'production',
+            //         }),
+            //     ],
+            // }).then(bundle => bundle.generate({ format: 'umd' }));
+        });
+        return es.merge(tasks);
+    });
+
+    console.log(`Finished scripts in ${(Date.now() - start) / 1000} seconds`);
+    return stream;
+};
+task('scripts', scripts);
 
 /*
  * Image Processing
@@ -99,7 +142,10 @@ const images = () => {
         console.log('Starting images ...');
     }
 
-    let stream = src(global.src.image, { since: lastRun('images') });
+    let stream = src(global.src.image, {
+        since: lastRun('images'),
+        allowEmpty: true,
+    });
 
     if (env === 'production') {
         stream = stream.pipe(
@@ -125,25 +171,32 @@ const images = () => {
 
     stream = stream.on('error', err => {
         notification('images', err);
-        stream.emit('end');
     });
 
     console.log(`Finished images in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.image));
 };
-task('scripts', images);
+task('images', images);
 
 /*
  * File Processing
  */
 const files = () => {
-    const stream = src(global.src.file, { since: lastRun('files') })
-        .on('error', err => {
-            notification('files', err);
-            stream.emit('end');
-        })
-        .pipe(dest(global.out.file));
-    return stream;
+    const start = Date.now();
+
+    if (!lastRun('files')) {
+        console.log('Starting files ...');
+    }
+
+    const stream = src(global.src.file, {
+        since: lastRun('files'),
+        allowEmpty: true,
+    }).on('error', err => {
+        notification('files', err);
+    });
+
+    console.log(`Finished files in ${(Date.now() - start) / 1000} seconds`);
+    return stream.pipe(dest(global.out.file));
 };
 task('files', files);
 
@@ -154,11 +207,12 @@ const watcher = cb => {
     }
     console.log('Watching for changes...');
     watch(global.src.file, files);
-    watch(global.src.style, style);
+    watch(global.src.style, styles);
+    // watch(global.src.script, scripts);
     watch(global.src.image, images);
 };
 
-const build = series(parallel(files, style), images, watcher);
+const build = series(parallel(files, styles), images, watcher);
 
 module.exports = {
     default: build,
