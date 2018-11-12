@@ -16,7 +16,6 @@ const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const glob = require('glob');
 const merge = require('merge-stream');
-const rename = require('gulp-rename');
 const builtIns = require('rollup-plugin-node-builtins');
 const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
@@ -54,15 +53,10 @@ const notification = (stage, err) => {
  * Style Processing
  */
 const styles = () => {
-    const start = Date.now();
     const processors = [autoPrefixer];
 
     if (env === 'production') {
         processors.push(cssNano({ discardUnused: { fontFace: false } }));
-    }
-
-    if (!lastRun('styles')) {
-        console.log('Starting styles ...');
     }
 
     let stream = src(global.src.style, {
@@ -86,7 +80,6 @@ const styles = () => {
         stream = stream.pipe(sourcemaps.write('.'));
     }
 
-    console.log(`Finished style in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.style));
 };
 task('styles', styles);
@@ -94,17 +87,7 @@ task('styles', styles);
 /*
  * Javascript Processing
  */
-const outputName = string => {
-    const removed = path.parse(string);
-    return path.parse(removed.name);
-};
 const scripts = () => {
-    const start = Date.now();
-
-    if (!lastRun('scripts')) {
-        console.log('Starting scripts ...');
-    }
-
     const stream = merge(
         glob.sync(global.src.script).map(input =>
             rollup({
@@ -134,7 +117,6 @@ const scripts = () => {
         ),
     );
 
-    console.log(`Finished scripts in ${(Date.now() - start) / 1000} seconds`);
     return stream;
 };
 task('scripts', scripts);
@@ -143,12 +125,6 @@ task('scripts', scripts);
  * Image Processing
  */
 const images = () => {
-    const start = Date.now();
-
-    if (!lastRun('images')) {
-        console.log('Starting images ...');
-    }
-
     let stream = src(global.src.image, {
         since: lastRun('images'),
         allowEmpty: true,
@@ -180,7 +156,6 @@ const images = () => {
         notification('images', err);
     });
 
-    console.log(`Finished images in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.image));
 };
 task('images', images);
@@ -189,12 +164,6 @@ task('images', images);
  * File Processing
  */
 const files = () => {
-    const start = Date.now();
-
-    if (!lastRun('files')) {
-        console.log('Starting files ...');
-    }
-
     const stream = src(global.src.file, {
         since: lastRun('files'),
         allowEmpty: true,
@@ -202,7 +171,6 @@ const files = () => {
         notification('files', err);
     });
 
-    console.log(`Finished files in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.file));
 };
 task('files', files);
@@ -212,7 +180,6 @@ const watcher = cb => {
     if (env === 'production') {
         return cb();
     }
-    console.log('Watching for changes...');
     watch(global.src.file, files);
     watch(global.src.style, styles);
     watch(global.src.script, scripts);
