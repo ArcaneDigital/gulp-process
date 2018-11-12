@@ -11,6 +11,16 @@ const autoPrefixer = require('autoprefixer');
 const cssNano = require('cssnano');
 
 // Javascript dependencies
+const rollup = require('rollup-stream');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const glob = require('glob');
+const merge = require('merge-stream');
+const rename = require('gulp-rename');
+const builtIns = require('rollup-plugin-node-builtins');
+const babel = require('rollup-plugin-babel');
+const resolve = require('rollup-plugin-node-resolve');
+const { uglify } = require('rollup-plugin-uglify');
 
 // Image dependencies
 const imagemin = require('gulp-imagemin');
@@ -95,37 +105,34 @@ const scripts = () => {
         console.log('Starting scripts ...');
     }
 
-    let stream = src(global.src.script, {
-        since: lastRun('scripts'),
-        allowEmpty: true,
-    });
-
-    stream = stream.pipe(files => {
-        const tasks = files.map(entry => {
-            const output = outputName(entry);
-            console.log(output);
-            // return rollup({
-            //     input: entry,
-            //     plugins: [
-            //         builtIns(),
-            //         resolve(),
-            //         commonjs(),
-            //         babel({
-            //             presets: ['@babel/preset-env'],
-            //             babelrc: false,
-            //         }),
-            //         uglify({
-            //             compress:
-            //                 env === 'production'
-            //                     ? { drop_console: true }
-            //                     : false,
-            //             sourceMap: env !== 'production',
-            //         }),
-            //     ],
-            // }).then(bundle => bundle.generate({ format: 'umd' }));
-        });
-        return es.merge(tasks);
-    });
+    const stream = merge(
+        glob.sync(global.src.script).map(input =>
+            rollup({
+                input,
+                format: 'umd',
+                plugins: [
+                    builtIns(),
+                    resolve(),
+                    babel({
+                        presets: ['@babel/env'],
+                        babelrc: false,
+                    }),
+                    uglify(),
+                ],
+                sourcemap: env !== 'production',
+            })
+                .pipe(
+                    source(
+                        path.resolve(input),
+                        path.resolve(global.src.script),
+                    ),
+                )
+                .pipe(buffer())
+                .pipe(sourcemaps.init({ loadMaps: true }))
+                .pipe(sourcemaps.write('.'))
+                .pipe(dest(`${global.out.script}/scripts`)),
+        ),
+    );
 
     console.log(`Finished scripts in ${(Date.now() - start) / 1000} seconds`);
     return stream;
@@ -208,11 +215,11 @@ const watcher = cb => {
     console.log('Watching for changes...');
     watch(global.src.file, files);
     watch(global.src.style, styles);
-    // watch(global.src.script, scripts);
+    watch(global.src.script, scripts);
     watch(global.src.image, images);
 };
 
-const build = series(parallel(files, styles), images, watcher);
+const build = series(parallel(files, styles, scripts), images, watcher);
 
 module.exports = {
     default: build,
