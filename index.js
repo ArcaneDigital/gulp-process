@@ -1,5 +1,5 @@
 // Global dependencies
-const { src, dest, series, parallel, lastRun, task } = require('gulp');
+const { src, dest, series, lastRun, task, watch, tree } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 
 // Style dependencies
@@ -46,7 +46,6 @@ const style = () => {
     if (env !== 'production') {
         stream = stream.pipe(sourcemaps.write('.'));
     }
-
     return stream.pipe(dest(global.out.style));
 };
 task('style', style);
@@ -61,9 +60,11 @@ const files = () => {
     return stream;
 };
 
-const watcher = () => {};
+const watcher = () => {
+    watch(global.src.style, style);
+};
 
-const build = series(files, style);
+const build = series(files, style, watcher);
 
 module.exports = {
     default: build,
