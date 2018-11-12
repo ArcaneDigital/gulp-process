@@ -23,6 +23,7 @@ const config = options => {
 const notification = () => {};
 
 const style = () => {
+    const start = Date.now();
     const processors = [autoPrefixer];
     if (env === 'production') {
         processors.push(cssNano({ discardUnused: { fontFace: false } }));
@@ -46,6 +47,7 @@ const style = () => {
     if (env !== 'production') {
         stream = stream.pipe(sourcemaps.write('.'));
     }
+    console.log(`Finished style in ${(Date.now() - start) / 1000} seconds`);
     return stream.pipe(dest(global.out.style));
 };
 task('style', style);
@@ -61,6 +63,7 @@ const files = () => {
 };
 
 const watcher = () => {
+    console.log('Started watches');
     watch(global.src.style, style);
 };
 
