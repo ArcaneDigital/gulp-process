@@ -60,7 +60,6 @@ const styles = () => {
     }
 
     let stream = src(global.src.style, {
-        since: lastRun('styles'),
         allowEmpty: true,
     });
 
@@ -126,7 +125,6 @@ task('scripts', scripts);
  */
 const images = () => {
     let stream = src(global.src.image, {
-        since: lastRun('images'),
         allowEmpty: true,
     });
 
@@ -165,7 +163,6 @@ task('images', images);
  */
 const files = () => {
     const stream = src(global.src.file, {
-        since: lastRun('files'),
         allowEmpty: true,
     }).on('error', err => {
         notification('files', err);
