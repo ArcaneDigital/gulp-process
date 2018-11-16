@@ -1,6 +1,6 @@
 {
   "name": "arcane-gulp",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "A codified version of our gulp process",
   "main": "index.js",
   "repository": {
