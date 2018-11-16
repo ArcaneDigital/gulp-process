@@ -36,6 +36,14 @@ const config = options => {
     global.out = options.destination;
 };
 
+/**
+ * Remove the string 'public' if it exists in the destination string
+ *
+ * @param string
+ * @returns {*}
+ */
+const removePublicFolder = string => string.replace('public/', '');
+
 /*
  * Error Notification
  */
@@ -76,7 +84,11 @@ const styles = () => {
         .pipe(postcss(processors));
 
     if (env !== 'production') {
-        stream = stream.pipe(sourcemaps.write('.'));
+        stream = stream.pipe(
+            sourcemaps.write('.', {
+                sourceMappingURLPrefix: removePublicFolder(global.out.style),
+            }),
+        );
     }
 
     return stream.pipe(dest(global.out.style));
@@ -111,7 +123,13 @@ const scripts = () => {
                 )
                 .pipe(buffer())
                 .pipe(sourcemaps.init({ loadMaps: true }))
-                .pipe(sourcemaps.write('.'))
+                .pipe(
+                    sourcemaps.write('.', {
+                        sourceMappingURLPrefix: removePublicFolder(
+                            global.out.script,
+                        ),
+                    }),
+                )
                 .pipe(dest(`${global.out.script}/scripts`)),
         ),
     );
