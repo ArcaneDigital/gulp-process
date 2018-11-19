@@ -100,7 +100,7 @@ task('styles', styles);
  */
 const scripts = () => {
     const stream = merge(
-        glob.sync(global.src.script).map(input =>
+        glob.sync(`${global.src.script}/*.js`).map(input =>
             rollup({
                 input,
                 format: 'umd',
@@ -130,7 +130,7 @@ const scripts = () => {
                         ),
                     }),
                 )
-                .pipe(dest(`${global.out.script}/scripts`)),
+                .pipe(dest(global.out.script)),
         ),
     );
 
@@ -197,7 +197,7 @@ const watcher = cb => {
     }
     watch(global.src.file, files);
     watch(global.src.style, styles);
-    watch(global.src.script, scripts);
+    watch(`${global.src.script}/**/*.js`, scripts);
     watch(global.src.image, images);
 };
 
