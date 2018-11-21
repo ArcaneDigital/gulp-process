@@ -19,7 +19,8 @@ const merge = require('merge-stream');
 const builtIns = require('rollup-plugin-node-builtins');
 const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
-const { uglify } = require('rollup-plugin-uglify');
+const commonjs = require('rollup-plugin-commonjs');
+// const { uglify } = require('rollup-plugin-uglify');
 
 // Image dependencies
 const imagemin = require('gulp-imagemin');
@@ -107,11 +108,11 @@ const scripts = () => {
                 plugins: [
                     builtIns(),
                     resolve(),
+                    commonjs(),
                     babel({
                         presets: ['@babel/env'],
                         babelrc: false,
                     }),
-                    uglify(),
                 ],
                 sourcemap: env !== 'production',
             })
