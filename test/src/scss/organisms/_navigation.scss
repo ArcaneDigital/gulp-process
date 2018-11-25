@@ -1,0 +1,85 @@
+$navigation-height-mobile: 5rem;
+$primary-navigation-height-desktop: 5.625rem;
+$secondary-navigation-height-desktop: 2.875rem;
+body{
+    padding-top: $navigation-height-mobile;
+    @media #{$large-and-up}{
+        padding-top: $primary-navigation-height-desktop + $secondary-navigation-height-desktop;
+    }
+}
+#navigation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: transform $default-transition;
+    background-color: $white;
+    height: $navigation-height-mobile;
+    @media #{$large-and-up}{
+        height: $primary-navigation-height-desktop + $secondary-navigation-height-desktop;
+    }
+    &.scrolled{
+        @media #{$large-and-up}{
+            transform: translateY(-$secondary-navigation-height-desktop);
+        }
+    }
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        margin: 0;
+        @media #{$large-and-up}{
+            align-items: center;
+            flex-direction: row;
+        }
+        li{
+            padding: 0;
+            &::before{
+                content: none;
+            }
+        }
+    }
+    a{
+        display: block;
+        font-weight: 600;
+        transition: background-color $default-transition;
+    }
+    .navigation-mobile-logo{
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        height: 2.375rem;
+        width: 10rem;
+        img{
+            height: auto;
+            width: 100%;
+        }
+        @media #{$large-and-up}{
+            display: none;
+        }
+    }
+    .navigation-drawer {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        position: absolute;
+        top: $navigation-height-mobile;
+        right: 0;
+        transform: translateX(100%);
+        height: calc(100vh - #{$navigation-height-mobile});
+        width: 100vw;
+        background-color: $white;
+        transition: transform $default-transition;
+        @media #{$large-and-up}{
+            display: block;
+            position: static;
+            transform: translateX(0);
+            height: auto;
+            width: auto;
+        }
+        @import "navigation/secondary-navigation";
+        @import "navigation/primary-navigation";
+    }
+    @import "navigation/mobile-menu-toggle";
+}

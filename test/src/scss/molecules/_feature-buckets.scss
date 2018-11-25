@@ -1,0 +1,90 @@
+.feature-buckets {
+    &.feature-buckets-dark {
+        background-color: $grey-cool;
+    }
+    &.feature-buckets-lists {
+        padding-top: 4.75rem;
+        .block-intro {
+            margin-bottom: 5rem;
+
+            h2 {
+                position: relative;
+                padding-bottom: 1.875rem;
+                margin-bottom: 1.875rem;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 5.5rem;
+                    height: 2px;
+                    background-color: $tertiary-color;
+                }
+            }
+            p {
+                color: $black;
+                font-size: 1.75rem;
+                line-height: 1.2;
+            }
+        }
+        .feature-bucket-container {
+            background-color: $white;
+            border: 1px solid rgba($grey-light, 0.65);
+            border-radius: $border-radius;
+            box-shadow: $primary-shadow-accent;
+            overflow: hidden;
+
+            .bucket {
+                margin: 0 !important;
+                padding: 3.125rem 2.5rem;
+            }
+        }
+    }
+    .feature-bucket-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 -3%;
+        &.three-per-row {
+            margin: 0 auto;
+            .bucket {
+                min-width: 16.25rem;
+                @media #{$large-and-up}{
+                    min-width: 0;
+                    width: 25%;
+                    margin: 0 4% 3rem;
+                }
+            }
+        }
+        .bucket {
+            max-width: 16.25rem;
+            min-width: 16.25rem;
+            margin: 0 5% 3rem;
+            @media #{$large-and-up}{
+                min-width: 0;
+                width: 20%;
+                margin: 0 2% 3rem;
+            }
+            .bucket-image {
+                background-size: contain;
+                width: 6.25rem;
+                height: 6.25rem;
+                margin: 0 0 1.25rem;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                }
+            }
+            .bucket-title {
+                font-size: 1.75rem;
+                color: $black;
+            }
+            .bucket-cta {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,70 @@
+.hero{
+    background-color: $primary-color;
+    .container{
+        text-align: left;
+        h1, p{
+            color: $white;
+        }
+
+    }
+    &-interior{
+        padding: 4rem 0;
+    }
+
+    &-home{
+        position: relative;
+        padding-bottom: 12.75rem;
+        &::before{
+            @extend %blank-pseudo;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(256.46deg, rgba(0,80,47,0) 0%, rgba(14,21,18,0.75) 100%), linear-gradient(223.69deg, rgba(255,194,14,0.8) 0%, rgba(0,80,47,0) 31.64%, rgba(81,85,84,0) 75.7%, rgba(44,48,46,0.6) 100%);
+        }
+        .container{
+            position: relative;
+            h1{
+                font-size: 4rem;
+                small{
+                    display: block;
+                    font-weight: 300;
+                    font-size: 3.125rem;
+                }
+            }
+            .btn{
+                padding: 1rem 2.5rem;
+                margin-top: 1rem;
+                font-weight: 700;
+            }
+
+        }
+        + .cta-cards{
+            position: relative;
+            padding: 0;
+            margin-top: -7.5rem;
+            .block-intro{
+                display: none;
+            }
+        }
+    }
+
+    &-article {
+        background-color: transparent;
+        padding: 4rem 0 0;
+        .container {
+            h1, p {
+                color: $primary-color;
+            }
+            h1 {
+                margin-bottom: 1.25rem;
+            }
+            .hero-article-image {
+                height: 30vw;
+                max-height: 28rem;
+                width: 100%;
+                margin-top: 4.125rem;
+            }
+        }
+    }
+}

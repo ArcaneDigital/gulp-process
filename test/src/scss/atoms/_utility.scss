@@ -1,0 +1,20 @@
+.bg-image{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.invisible{
+    position: absolute;
+    top: -625rem;
+    left: -625rem;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.noScroll{
+    overflow: hidden;
+}

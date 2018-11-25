@@ -1,0 +1,71 @@
+.form-basic{
+    .container{
+        position: relative;
+        background-color: $white;
+        border-radius: $border-radius;
+        box-shadow: $primary-shadow-accent;
+        padding: 2rem 1.5rem;
+        @media #{$large-and-up}{
+            padding: 3.75rem 2rem;
+        }
+        .form-basic-container{
+            max-width: 56.25rem;
+            margin: 0 auto;
+            form{
+                p{
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    @media #{$large-and-up}{
+                        flex-direction: row;
+                        justify-content: center;
+                        margin-right: -1%;
+                        margin-left: -1%;
+                    }
+                    br{
+                        display: none;
+                    }
+                    label{
+                        width: 100%;
+                        margin-bottom: 1rem;
+                        @media #{$large-and-up}{
+                            width: 48%;
+                            margin-right: 1%;
+                            margin-left: 1%;
+                            margin-bottom: 1.325rem;
+                        }
+                        &.input-full-width{
+                            @media #{$large-and-up}{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    .optional-fields{
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        background-color: $grey-faint;
+                        padding: 1rem;
+                        border-radius: $border-radius;
+                        margin-bottom: 1.325rem;
+                        @media #{$large-and-up}{
+                            flex-direction: row;
+                            justify-content: center;
+                            margin-right: 1%;
+                            margin-left: 1%;
+                        }
+                    }
+                    a{
+                        width: 100%;
+                        text-align: center;
+                    }
+                    input[type="submit"]{
+                        margin: 1rem auto;
+                    }
+                }
+            }
+        }
+    }
+}
+

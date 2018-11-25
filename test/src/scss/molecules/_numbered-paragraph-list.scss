@@ -1,0 +1,28 @@
+.numbered-paragraph-list{
+    counter-reset: numberList;
+    margin: 2.5rem 0;
+    .numbered-paragraph-list-item{
+        position: relative;
+        padding-left: 3rem;
+        &:not(:last-child){
+            margin-bottom: 2.5rem;
+        }
+        &::before{
+            counter-increment: numberList;
+            content: counter(numberList);
+            position: absolute;
+            display: block;
+            top:0;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+            color: $white;
+            text-align: center;
+            line-height: 2rem;
+            font-weight: bold;
+            background-color: $primary-color;
+            border-radius: 100%;
+
+        }
+    }
+}

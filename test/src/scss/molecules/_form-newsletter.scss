@@ -1,0 +1,33 @@
+.form-newsletter{
+    background-color: $white;
+    .container{
+        .form-newsletter-container{
+            p{
+                display: flex;
+                flex-direction: column;
+                @media #{$large-and-up}{
+                    flex-direction: row;
+                    align-items: flex-end;
+                    justify-content: space-between;
+                }
+                br{
+                    display: none;
+                }
+                label{
+                    width: 100%;
+                    @media #{$large-and-up}{
+                        width: 65%;
+                    }
+                }
+
+                input[type="submit"]{
+                    width: 100%;
+                    margin-top: 1.5rem;
+                    @media #{$large-and-up}{
+                        width: 32%;
+                    }
+                }
+            }
+        }
+    }
+}

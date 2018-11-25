@@ -1,7 +1,10 @@
 # gitignore
-node_modules
+/node_modules
 *.log
 
 # Only apps should have lockfiles
 yarn.lock
 package-lock.json
+
+# Ignoring output folder for test
+/test/dist

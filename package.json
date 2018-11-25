@@ -3,6 +3,12 @@
   "version": "1.0.0-alpha.7",
   "description": "A codified version of our gulp process",
   "main": "index.js",
+  "scripts": {
+    "test:build:dev": "npm run test:build:development",
+    "test:build:development": "cross-env NODE_ENV=development gulp --gulpfile test/gulpfile.js",
+    "test:build:prod": "npm run test:build:production",
+    "test:build:production": "cross-env NODE_ENV=production gulp --gulpfile test/gulpfile.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com//ArcaneDigital/arcane-gulp.git"
@@ -24,14 +30,16 @@
   "devDependencies": {
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
+    "bunnyjs": "^0.14.41",
     "cross-env": "^5.2.0",
-    "gulp": "^4.0.0",
     "eslint": "^5.9.0",
     "eslint-config-arcane": "^1.0.0-alpha.10",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "gulp": "^4.0.0",
+    "lodash": "^4.17.11",
     "prettier": "^1.15.2"
   },
   "peerDependencies": {

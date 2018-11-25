@@ -1,0 +1,35 @@
+.article-body{
+    border-bottom: 1px solid $grey-light;
+    .article-body-share{
+        margin-top: 5rem;
+        text-align: center;
+        > p{
+            font-weight: bold;
+            color: $primary-color;
+        }
+        .article-body-share-links{
+            .article-body-share-link{
+                display: inline-block;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 100%;
+                border: 1px solid $primary-color;
+                background-size: 1.125rem 1.125rem;
+                background-repeat: no-repeat;
+                background-position: center;
+                &:not(:last-child){
+                    margin-right: 1.5rem;
+                }
+                &.facebook{
+                    background-image: url('themes/theme/images/icons/icons-facebook.svg');
+                }
+                &.twitter{
+                    background-image: url('themes/theme/images/icons/icons-linkedin.svg');
+                }
+                &.linkedin{
+                    background-image: url('themes/theme/images/icons/icons-twitter.svg');
+                }
+            }
+        }
+    }
+}

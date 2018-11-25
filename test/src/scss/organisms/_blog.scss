@@ -1,0 +1,127 @@
+.blog-article-list{
+    .blog-article-list-header{
+        padding-bottom: 1rem;
+        border-bottom: 2px solid $primary-color;
+        @media #{$large-and-up}{
+            padding-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        h2{
+            margin-bottom: 2rem;
+            @media #{$large-and-up}{
+                margin: 0;
+            }
+        }
+        .blog-article-list-header-filters{
+            .filter-toggle{
+                position: relative;
+                font-weight: bold;
+                color: $primary-color;
+                font-size: 1.125rem;
+                background-image: url('themes/theme/images/icons/icon-arrow-down.svg');
+                background-repeat: no-repeat;
+                background-size: 1.5rem 1.5rem;
+                background-position: top 1.125rem right;
+                padding: 1rem 0;
+                margin: 0;
+                @media #{$large-and-up}{
+                    display: none;
+                }
+                &.active{
+                    + .blog-article-list-header-filter-container{
+                        max-height: 50rem;
+                        @media #{$large-and-up}{
+                            max-height: none;
+                        }
+                    }
+                }
+            }
+            .blog-article-list-header-filter-container{
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height $default-transition;
+                @media #{$large-and-up}{
+                    display: flex;
+                    max-height: none;
+                }
+                .blog-filter{
+                    margin-bottom: 1.5rem;
+                    @media #{$large-and-up}{
+                        margin-left: 0.5rem;
+                        margin-bottom: 0;
+                    }
+                    &-search{
+                        @media #{$large-and-up}{
+                            width: 12.5rem;
+                        }
+                    }
+                    &-category{
+                        @media #{$large-and-up}{
+                            width: 10rem;
+                        }
+                    }
+                    &-date{
+                        @media #{$large-and-up}{
+                            width: 7.5rem;
+                        }
+                    }
+                    &-author{
+                        @media #{$large-and-up}{
+                            width: 7.5rem;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .blog-article-preview-list{
+        .blog-article-preview{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid $primary-color;
+            @media #{$large-and-up}{
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 3.25rem 0;
+            }
+            .blog-article-preview-image{
+                min-height: 14.375rem;
+                margin-bottom: 2rem;
+                @media #{$large-and-up}{
+                    width: 27%;
+                    margin-bottom: 0;
+                }
+            }
+            .blog-article-preview-content{
+                padding: 0 1.5rem;
+                @media #{$large-and-up}{
+                    width: 70%;
+                    padding: 0;
+                }
+                time{
+                    font-size: 0.75rem;
+                }
+                h3{
+                    font-weight: bold;
+                }
+                p{
+                    font-size: 0.9375rem;
+                }
+                a{
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+    .pagination{
+        margin-top: 3.75rem;
+        margin-bottom: 3.75rem;
+    }
+}

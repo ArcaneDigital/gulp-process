@@ -1,0 +1,191 @@
+footer {
+    color: $grey-medium;
+    background-color: $white;
+    a {
+        color: inherit;
+        &:hover, &:focus, &:active {
+            color: $primary-color;
+        }
+    }
+    .footer-contact-cta {
+        position: relative;
+        padding: 2.75rem 0;
+        background-image: $primary-gradient;
+        overflow: hidden;
+        &::after {
+            @media #{$medium-and-up}{
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 25%;
+                height: 100%;
+                background-image: url('themes/theme/images/Footer-Cheveron.svg');
+                background-repeat: no-repeat;
+                background-position: 0;
+                background-size: auto 100%;
+            }
+            @media #{$large-and-up}{
+                width: 100%;
+                background-position: 100%;
+            }
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            @media #{$large-and-up}{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+            }
+            p {
+                color: $white;
+                line-height: 1;
+                margin: 0;
+            }
+            .footer-contact-cta-title {
+                font-size: 2.5rem;
+                font-weight: 300;
+                @media #{$large-and-up}{
+                    margin-right: auto;
+                }
+            }
+            .footer-contact-cta-action {
+                font-size: 1.125rem;
+                margin-top: 2rem;
+                @media #{$large-and-up}{
+                    margin: 0 1.875rem;
+                    white-space: nowrap;
+                }
+            }
+            .btn {
+                margin-top: 1.5rem;
+                @media #{$large-and-up}{
+                    margin-top: 0;
+                }
+            }
+        }
+
+    }
+    .footer-upper {
+        display: flex;
+        flex-direction: column;
+        padding: 3rem 0 1.5rem;
+        @media #{$large-and-up}{
+            flex-direction: row;
+            padding: 5.25rem 0 6.25rem;
+        }
+        .footer-info {
+            @media #{$large-and-up}{
+                width: 25%;
+            }
+            .footer-info-logo {
+                max-width: 9.75rem;
+                margin-bottom: 1rem;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .footer-info-contact {
+                p {
+                    font-size: 0.875rem;
+                    line-height: 1.25rem;
+                }
+            }
+            .footer-info-social {
+                margin-top: 1.5rem;
+                @media #{$large-and-up}{
+                    margin-top: 2.5rem;
+                }
+                .footer-info-social-icon {
+                    display: inline-block;
+                    width: 1.125rem;
+                    height: 1.125rem;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    margin-right: 1.5rem;
+                    &.facebook {
+                        background-image: url('themes/theme/images/icons/icons-facebook.svg');
+                    }
+                    &.twitter {
+                        background-image: url('themes/theme/images/icons/icons-twitter.svg');
+                    }
+                    &.linkedin {
+                        background-image: url('themes/theme/images/icons/icons-linkedin.svg');
+                    }
+                }
+            }
+        }
+        .footer-upper-navigation {
+            @media #{$large-and-up}{
+                width: 55%;
+            }
+            @import "footer/footer-upper-navigation";
+        }
+        .footer-awards {
+            max-width: 11.25rem;
+            @media #{$large-and-up}{
+                width: 15%;
+            }
+            img {
+                max-width: 100%;
+                width: 100%;
+                height: auto;
+            }
+            .footer-awards-content {
+                border-top: 2px solid $grey-light;
+                padding-top: 0.5rem;
+                margin-top: 0.5rem;
+                p {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+
+    .footer-lower {
+        padding: 1.875rem 0;
+        border-top: 1px solid $grey-faint;
+        p, li {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column-reverse;
+            @media #{$large-and-up}{
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .footer-lower-navigation {
+                margin-bottom: 1.5rem;
+                @media #{$large-and-up}{
+                    margin-bottom: 0;
+                }
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    margin: 0;
+                    li {
+                        padding-left: 1.25rem;
+                        &:first-child {
+                            padding-left: 0;
+                        }
+                        &::before {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

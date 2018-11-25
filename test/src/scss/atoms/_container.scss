@@ -1,0 +1,32 @@
+body{
+    background-color: $grey-faint;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 78.75rem;
+    width: 90%;
+    @media #{$medium-and-up} {
+            width: 95%;
+    }
+    @media #{$large-and-up} {
+            width: 90%;
+    }
+}
+
+.container-sm{
+    @extend .container;
+    max-width: 75rem;
+}
+
+.container-xs{
+    @extend .container;
+    max-width: 65rem;
+}
+
+section{
+    padding: 4rem 0;
+    @media #{$medium-and-up}{
+        padding: 6rem 0;
+    }
+}

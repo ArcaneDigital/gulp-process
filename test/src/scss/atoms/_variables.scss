@@ -1,0 +1,79 @@
+/*
+    TABLE OF CONTENTS
+
+    1. COLOURS
+    2. MEDIA QUERY RANGES
+    3. FONTS
+    4. TRANSITIONS
+    5. BOX SHADOWS
+
+*/
+
+// 1. COLOURS
+//=================================================================
+$primary-color: #00502F;
+$secondary-color: #FFC20E;
+$tertiary-color: #BFD730;
+$error-color: #FF0000;
+
+$accent-green: #50B848;
+$accent-orange: #F47920;
+$accent-blue: #0095DA;
+$accent-navy: #005BAA;
+
+$white: #FFFFFF;
+$grey-faint: #F9FAFB;
+$grey-cool: #F2F5F7;
+$grey-light: #DBE3E9;
+$grey-medium: #788692;
+$grey: #576169;
+$grey-dark: #373D42;
+$black: #000000;
+
+$font-color: $grey;
+
+$primary-gradient: linear-gradient(14.09deg, #005030 0%, #30D76A 100%);
+$primary-shadow-accent: 0 0.625rem 0 0 $primary-color, 0 1.25rem 2rem 0 rgba($grey,0.05);
+
+// 2. MEDIA QUERY RANGES
+// ==========================================================================
+$small-screen-up: 569px;
+$medium-screen-up: 769px;
+$large-screen-up: 1025px;
+$extra-large-screen-up: 1281px;
+$small-screen: 568px;
+$medium-screen: 768px;
+$large-screen: 1024px;
+$extra-large-screen: 1280px;
+$navigation-breakpoint: 870px;
+
+$small-and-up: "only screen and (min-width : 419px)";
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})";
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})";
+$extra-large-and-up: "only screen and (min-width : #{$extra-large-screen-up})";
+$small-and-down: "only screen and (max-width : #{$small-screen})";
+$medium-and-down: "only screen and (max-width : #{$medium-screen})";
+$large-only: "only screen and (min-width : #{$medium-screen-up}) and (max-width : #{$large-screen})";
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
+
+// 3. FONTS
+//==================================================================
+$header-font: 'Open Sans', sans-serif;
+$text-font: "Open Sans", sans-serif;
+$accent-font: "Open Sans Condensed", sans-serif;
+
+// 4. TRANSITIONS
+//==================================================================
+$default-transition: 0.3s ease-in-out;
+$quick-transition: 0.15s ease-in-out;
+
+// 5. BOX SHADOWS
+//==================================================================
+$default-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.1);
+
+// 6. BORDER RADIUS
+//==================================================================
+$border-radius: 0.75rem;
+
+
+

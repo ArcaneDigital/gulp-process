@@ -1,0 +1,82 @@
+.flip-grid {
+    position: relative;
+    padding: 8.125rem 0;
+    background-image: $primary-gradient;
+    overflow: hidden;
+    &::after {
+        @media #{$medium-and-up}{
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 74rem;
+            height: 74rem;
+            background-image: $primary-gradient;
+            padding-left: 100%;
+            border-radius: 3.75rem;
+            opacity: 0.75;
+            transform: rotate(-45deg) translate(68%, 80%);
+        }
+    }
+    .container {
+        position: relative;
+        z-index: 1;
+        .flip-grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            @media #{$large-and-up}{
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                margin: 0 -1rem;
+            }
+            & ~ .flip-grid-item {
+                margin-top: 5rem;
+            }
+            &.image-left {
+                @media #{$large-and-up}{
+                    flex-direction: row;
+                }
+            }
+            .flip-grid-content {
+                color: $white;
+                max-width: 39rem;
+                @media #{$large-and-up}{
+                    max-width: 40%;
+                    margin: 0 1rem;
+                }
+                h2, p {
+                    color: inherit;
+                }
+                .flip-grid-content-accent {
+                    font-weight: 700;
+                    margin-bottom: 0.625rem;
+                }
+                h2 {
+                    font-size: 3.125rem;
+                    line-height: 1.2;
+                }
+                .flip-grid-content-text {
+                    p {
+                        font-size: 1.125rem;
+                    }
+                }
+                .btn {
+                    margin-top: 2.5rem;
+                }
+            }
+            .flip-grid-image {
+                width: 100%;
+                max-width: 39rem;
+                min-height: 18rem;
+                border-radius: $border-radius;
+                margin-bottom: 2rem;
+                @media #{$large-and-up}{
+                    max-width: 27.5rem;
+                    min-height: 27.5rem;
+                    margin: 0 1rem;
+                }
+            }
+        }
+    }
+}

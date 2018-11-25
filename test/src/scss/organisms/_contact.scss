@@ -1,0 +1,269 @@
+$content-column-width: 60%;
+$aside-column-width: 40%;
+$column-gutter: 2.5rem;
+
+.contact-page {
+    h2 {
+        font-size: 3.125rem;
+    }
+
+    h3 {
+        font-size: 1.875rem;
+        line-height: 1;
+    }
+
+    .column-layout {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .content-column {
+            flex: 1 1 $content-column-width;
+        }
+
+        .aside-column {
+            flex: 1 1 $aside-column-width;
+            max-width: $aside-column-width;
+            padding-left: $column-gutter;
+        }
+    }
+
+    .content-column {
+        max-width: $content-column-width;
+        padding-right: $column-gutter;
+    }
+
+    .content-box {
+        background-color: $grey-light;
+        padding: 1.875rem 1.875rem 2.5rem;
+        border-radius: $border-radius;
+    }
+
+    .content-box-outline {
+        @extend .content-box;
+        background-color: transparent;
+        border: 0.125rem solid $grey-light;
+    }
+
+    .content-block {
+        padding-bottom: 2.5rem;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-weight: 800;
+            margin-bottom: 0.875rem;
+        }
+
+        p {
+            font-size: 1.25rem;
+        }
+    }
+
+    .branch-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 1.875rem;
+            height: 1.875rem;
+            background-color: $primary-color;
+            border-radius: 100%;
+            margin-left: 1rem;
+        }
+    }
+
+    .location-map {
+        padding-top: 3.75rem;
+        padding-bottom: 3.75rem;
+
+        & + section {
+            padding-top: 0;
+        }
+
+        .location-map-container {
+            display: flex;
+            border-radius: $border-radius;
+            overflow: hidden;
+        }
+
+        .map-container {
+            flex: 1 1 calc(#{$content-column-width} + (#{$column-gutter} * 2));
+            max-width: calc(#{$content-column-width} + (#{$column-gutter} * 2));
+        }
+
+        .image-container {
+            flex: 1 1 $aside-column-width;
+            max-width: $aside-column-width;
+        }
+
+        #map {
+            height: 22rem;
+        }
+    }
+
+    .contact-information {
+        h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 0;
+
+            a {
+                display: inline-block;
+            }
+
+            &.phone {
+                font-size: 3.125rem;
+                font-weight: 800;
+                line-height: 1;
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+
+    .social-information {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        h3 {
+            margin-bottom: 0.625rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 0;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+
+            li {
+                & ~ li {
+                    margin-left: 0.625rem;
+                }
+            }
+
+            a {
+                display: block;
+                width: 3.125rem;
+                height: 3.125rem;
+                background-color: $primary-color;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    .branch-information {
+        padding-bottom: 5rem;
+
+        p {
+            margin-bottom: 2rem;
+
+            & > span, & > strong {
+                display: block;
+            }
+        }
+    }
+
+    .hours-information {
+        ul {
+            margin-top: 1.25rem;
+            margin-bottom: 0;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                font-size: 1.125rem;
+
+                & ~ li {
+                    margin-top: 0.5rem;
+                }
+
+                strong {
+                    flex: 0 0 4rem;
+                    max-width: 4rem;
+                    padding-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .branch-locations {
+        padding-top: 3.75rem;
+
+        .location-list {
+            .location {
+                & ~ .location {
+                    margin-top: 2rem;
+                }
+
+                .title {
+                    color: $white;
+                    background-color: $primary-color;
+                    padding: 1rem 1.875rem;
+                    border-radius: $border-radius $border-radius 0 0;
+
+                    h4 {
+                        font-size: 1.875rem;
+                        font-weight: 300;
+                        line-height: 1;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .branch-list {
+                    border: 0.125rem solid $grey-light;
+                    border-top: 0;
+                    border-radius: 0 0 $border-radius $border-radius;
+
+                    .branch {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 1.5rem 1.875rem;
+
+                        & ~ .branch {
+                            border-top: 0.125rem solid $grey-light;
+                        }
+
+                        .branch-details {
+                            h5, p {
+                                font-size: 1rem;
+                                line-height: 1.5;
+                                margin-bottom: 0;
+                            }
+
+                            h5 {
+                                font-weight: 800;
+                            }
+                        }
+
+                        .branch-cta {
+                            justify-content: flex-end;
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
