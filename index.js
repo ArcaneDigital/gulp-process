@@ -1,5 +1,5 @@
 // Global dependencies
-const { src, dest, series, parallel, lastRun, task, watch } = require('gulp');
+const { src, dest, series, parallel, task, watch } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
