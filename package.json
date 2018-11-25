@@ -3,6 +3,9 @@
   "version": "1.0.0-alpha.7",
   "description": "A codified version of our gulp process",
   "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint --format=pretty index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com//ArcaneDigital/arcane-gulp.git"
@@ -25,13 +28,14 @@
     "@babel/core": "^7.1.5",
     "@babel/preset-env": "^7.1.5",
     "cross-env": "^5.2.0",
-    "gulp": "^4.0.0",
     "eslint": "^5.9.0",
     "eslint-config-arcane": "^1.0.0-alpha.10",
+    "eslint-formatter-pretty": "^2.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "gulp": "^4.0.0",
     "prettier": "^1.15.2"
   },
   "peerDependencies": {
