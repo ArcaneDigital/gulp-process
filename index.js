@@ -6,6 +6,7 @@ const path = require('path');
 // Style dependencies
 const sass = require('gulp-sass');
 const sassGlob = require('gulp-sass-glob');
+const tildeImporter = require('node-sass-tilde-importer');
 const postcss = require('gulp-postcss');
 const autoPrefixer = require('autoprefixer');
 const cssNano = require('cssnano');
@@ -78,7 +79,7 @@ const styles = () => {
 
     stream = stream
         .pipe(sassGlob())
-        .pipe(sass({ includePaths: ['./node_modules/**/'] }))
+        .pipe(sass({ importer: tildeImporter }))
         .on('error', err => {
             notification('styles', err);
         })

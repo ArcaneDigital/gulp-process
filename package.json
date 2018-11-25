@@ -54,6 +54,7 @@
     "imagemin-jpegoptim": "^6.0.0",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.3.0",
+    "node-sass-tilde-importer": "^1.0.2",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-builtins": "^2.1.2",
