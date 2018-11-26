@@ -1,16 +1,22 @@
-// Global dependencies
+/**
+ * Gulp and Node dependencies
+ */
 const { src, dest, series, parallel, lastRun, task, watch } = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
-// Style dependencies
+/**
+ * Stylesheet task related dependencies
+ */
 const sass = require('gulp-sass');
 const sassGlob = require('gulp-sass-glob');
 const postcss = require('gulp-postcss');
 const autoPrefixer = require('autoprefixer');
 const cssNano = require('cssnano');
 
-// Javascript dependencies
+/**
+ * Javascript task related dependencies
+ */
 const rollup = require('rollup-stream');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
@@ -22,16 +28,37 @@ const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 // const { uglify } = require('rollup-plugin-uglify');
 
-// Image dependencies
+/**
+ * Image task related dependencies
+ */
 const imagemin = require('gulp-imagemin');
 const jpegOptim = require('imagemin-jpegoptim');
 
-// Notifications
+/**
+ * Notification task related dependencies
+ */
 const notifier = require('node-notifier');
 
+/**
+ * Sets the current environment
+ *
+ * @type {string | string}
+ */
 const env = process.env.NODE_ENV || 'production';
 
+/**
+ * Defines empty object for configuration later
+ *
+ * @type {Object}
+ */
 const global = {};
+
+/**
+ * Accepts options to define to global variables
+ *
+ * @param options - configuration options
+ * @returns void
+ */
 const config = options => {
     global.src = options.source;
     global.out = options.destination;
@@ -41,25 +68,31 @@ const config = options => {
  * Remove the string 'public' if it exists in the destination string
  *
  * @param string
- * @returns {*}
+ * @returns {string}
  */
 const removePublicFolder = string => string.replace('public/', '');
 
-/*
- * Error Notification
+/**
+ * Notification task for when there is an issue at runtime
+ *
+ * @param task
+ * @param err
+ * @returns void
  */
-const notification = (stage, err) => {
+const notification = (task, err) => {
     if (err) {
         notifier.notify({
-            title: `ERROR: ${stage}`,
-            message: `There was an error within ${stage}`,
+            title: `ERROR: ${task}`,
+            message: `There was an error within ${task}`,
         });
         console.log(err);
     }
 };
 
-/*
- * Style Processing
+/**
+ * Stylesheet processing task
+ *
+ * @return {event}
  */
 const styles = () => {
     const processors = [autoPrefixer];
@@ -96,8 +129,10 @@ const styles = () => {
 };
 task('styles', styles);
 
-/*
- * Javascript Processing
+/**
+ * Javascript processing task
+ *
+ * @return {event}
  */
 const scripts = () => {
     const stream = merge(
@@ -139,8 +174,10 @@ const scripts = () => {
 };
 task('scripts', scripts);
 
-/*
- * Image Processing
+/**
+ * Image processing
+ *
+ * @return {event}
  */
 const images = () => {
     let stream = src(global.src.image, {
@@ -177,8 +214,10 @@ const images = () => {
 };
 task('images', images);
 
-/*
- * File Processing
+/**
+ * FIle processing
+ *
+ * @return {event}
  */
 const files = () => {
     const stream = src(global.src.file, {
@@ -191,6 +230,12 @@ const files = () => {
 };
 task('files', files);
 
+/**
+ * Watcher task
+ *
+ * @param cb
+ * @return {cb|void}
+ */
 // eslint-disable-next-line consistent-return
 const watcher = cb => {
     if (env === 'production') {
@@ -202,8 +247,17 @@ const watcher = cb => {
     watch(global.src.image, images);
 };
 
+/**
+ * Gulp default task
+ *
+ * @returns void
+ */
 const build = series(parallel(files, styles, scripts), images, watcher);
 
+/**
+ * Exportable gulp task
+ * @type {{default: *, config: config}}
+ */
 module.exports = {
     default: build,
     config,
