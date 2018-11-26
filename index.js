@@ -17,7 +17,7 @@ const builtIns = require('rollup-plugin-node-builtins');
 const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
-// const { uglify } = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 
 // Image dependencies
 const imagemin = require('gulp-imagemin');
@@ -105,6 +105,13 @@ const scripts = () => {
         babel({
             presets: ['@babel/env'],
             babelrc: false,
+        }),
+        uglify({
+            compress: env === 'production' ? {} : false,
+            mangle: env === 'production',
+            output: {
+                beautify: env !== 'production',
+            },
         }),
     ];
 
