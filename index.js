@@ -11,11 +11,8 @@ const autoPrefixer = require('autoprefixer');
 const cssNano = require('cssnano');
 
 // Javascript dependencies
-const rollup = require('rollup-stream');
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
-const glob = require('glob');
-const merge = require('merge-stream');
+const rollup = require('rollup');
+const glob = require('fast-glob');
 const builtIns = require('rollup-plugin-node-builtins');
 const babel = require('rollup-plugin-babel');
 const resolve = require('rollup-plugin-node-resolve');
@@ -100,42 +97,34 @@ task('styles', styles);
  * Javascript Processing
  */
 const scripts = () => {
-    const stream = merge(
-        glob.sync(`${global.src.script}/*.js`).map(input =>
-            rollup({
-                input,
-                format: 'umd',
-                plugins: [
-                    builtIns(),
-                    resolve(),
-                    commonjs(),
-                    babel({
-                        presets: ['@babel/env'],
-                        babelrc: false,
-                    }),
-                ],
-                sourcemap: env !== 'production',
-            })
-                .pipe(
-                    source(
-                        path.resolve(input),
-                        path.resolve(global.src.script),
-                    ),
-                )
-                .pipe(buffer())
-                .pipe(sourcemaps.init({ loadMaps: true }))
-                .pipe(
-                    sourcemaps.write('.', {
-                        sourceMappingURLPrefix: removePublicFolder(
-                            global.out.script,
-                        ),
-                    }),
-                )
-                .pipe(dest(global.out.script)),
-        ),
-    );
+    const output = { format: 'umd', sourcemap: env !== 'production' };
+    const plugins = [
+        builtIns(),
+        resolve(),
+        commonjs(),
+        babel({
+            presets: ['@babel/env'],
+            babelrc: false,
+        }),
+    ];
 
-    return stream;
+    const rollupProcessing = input =>
+        rollup
+            .rollup({
+                input,
+                plugins,
+            })
+            .then(bundle =>
+                bundle.write({
+                    file: path.basename(input),
+                    dir: global.out.script,
+                    ...output,
+                }),
+            );
+
+    const processing = entries => Promise.all(entries.map(rollupProcessing));
+
+    return glob([`${global.src.script}/*.js`]).then(processing);
 };
 task('scripts', scripts);
 
